@@ -1,0 +1,27 @@
+# Quatrefoil Guide
+
+> for Quatrefoil on Calcit-js.
+
+- [Guide](./guide.md)
+- [Camera](./camera.md)
+- [Materials](./materials.md)
+- [Geometries](./geometries.md)
+  - [Box](./geometries/box.md)
+  - [Buffer Object](./geometries/buffer-object.md)
+  - [group](./geometries/group.md)
+  - [line](./geometries/line.md)
+  - [parametric](./geometries/parametric.md)
+  - [plane reflector](./geometries/plane-reflector.md)
+  - [Polyhedron](./geometries/polyhedron.md)
+  - [Scene](./geometries/scene.md)
+  - [Shape](./geometries/shape.md)
+  - [Spine](./geometries/spine.md)
+  - [Text](./geometries/text.md)
+  - [Torus](./geometries/torus.md)
+  - [Tube](./geometries/tube.md)
+- [Components](./components.md)
+  - [Position Point](./components/position-point.md)
+- [Lights](./lights.md)
+  - [Ambient Light](./lights/ambient-light.md)
+  - [Point Light](./lights/point-light.md)
+  - [Rect Area Light](./lights/rect-area-light.md)
