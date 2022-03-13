@@ -42,6 +42,7 @@ quatrefoil.comp.control/comp-value-2d
     :position $ [] 0 10 0
     :speed 0.2
     :color 0xccaaff
+    :fract-length 2
   fn (v d!)
     d! cursor $ assoc state :v1 v
 ```
