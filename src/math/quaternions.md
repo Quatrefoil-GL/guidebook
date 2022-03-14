@@ -13,3 +13,10 @@ Under the scope `quatrefoil.math`:
 - `&q*`
 - `&q+`
 - `&q-`
+- `q+`
+- `q-`
+- `q-inverse`
+- `q-conjugate`
+- `q-length`
+- `q-length2`
+- `q-scale`
