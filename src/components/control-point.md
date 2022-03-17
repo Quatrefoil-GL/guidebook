@@ -10,6 +10,8 @@ quatrefoil.comp.control/comp-pin-point
     :color 0xffaaaa
     :opacity 0.8
     :radius 1
+    :label |A
+    :text-color $ hslx 20 90 80
   fn (next d!)
     d! cursor $ assoc state :p0 next
 ```
@@ -29,6 +31,7 @@ quatrefoil.comp.control/comp-value
     :show-text? false
     :fract-length 2
     :opacity 0.8
+    :label |A
   fn (v1 d!)
     d! cursor $ assoc state :v0 v1
 ```
@@ -43,6 +46,7 @@ quatrefoil.comp.control/comp-value-2d
     :speed 0.2
     :color 0xccaaff
     :fract-length 2
+    :label |A
   fn (v d!)
     d! cursor $ assoc state :v1 v
 ```
