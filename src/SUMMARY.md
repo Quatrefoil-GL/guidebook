@@ -12,6 +12,7 @@
   - [Group](./geometries/group.md)
   - [Line](./geometries/line.md)
   - [MeshLine](./geometries/mesh-line.md)
+  - [Line Segments](./geometries/line-segments.md)
   - [Sphere](./geometries/sphere.md)
   - [Parametric](./geometries/parametric.md)
   - [Plane reflector](./geometries/plane-reflector.md)
