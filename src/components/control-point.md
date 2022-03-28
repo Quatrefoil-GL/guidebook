@@ -50,3 +50,15 @@ quatrefoil.comp.control/comp-value-2d
   fn (v d!)
     d! cursor $ assoc state :v1 v
 ```
+
+controls a bool value:
+
+```
+comp-switch
+  {} (:label "\"Status") (:color 0xaa88ff)
+    :value $ :on? state
+    :text-color 0xaa88ff
+    :position $ [] 20 0 0
+  fn (v d!)
+    d! cursor $ assoc state :on? v
+```
