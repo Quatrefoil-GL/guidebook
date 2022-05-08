@@ -2,7 +2,7 @@
 
 ```cirru
 line $ {}
-  :lines $ [][]
+  :points $ [][]
     10 20 10
     100 140 0
   :position $ [] 0 0 0
