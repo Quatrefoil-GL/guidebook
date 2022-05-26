@@ -116,6 +116,8 @@
                   :content $ load-doc "\"geometries/tube.md"
                 {} (:title "\"ShaderMesh") (:key :shader-mesh)
                   :content $ load-doc "\"geometries/shader-mesh.md"
+                {} (:title "\"Some Object") (:key :some-object)
+                  :content $ load-doc "\"geometries/some-object.md"
             {} (:title "\"Components") (:key :components)
               :content $ load-doc "\"components.md"
               :children $ []

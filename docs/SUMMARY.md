@@ -24,6 +24,7 @@
   - [Torus](./geometries/torus.md)
   - [Tube](./geometries/tube.md)
   - [ShaderMesh](./geometries/shader-mesh.md)
+  - [SomeObject](./geometries/some-object.md)
 - [Components](./components.md)
   - [Control Point](./components/control-point.md)
 - [Lights](./lights.md)
