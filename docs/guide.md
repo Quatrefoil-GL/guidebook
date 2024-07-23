@@ -14,14 +14,15 @@ yarn add @quamolit/quatrefoil-utils
 
 ### Develop
 
-Relies on https://github.com/calcit-lang/calcit_runner.rs .
+Relies on <https://calcit-lang.org> .
 
 ```bash
 yarn
 
-# also get calcit deps in `~/.config/calcit/modules/`
+caps # get calcit deps in `~/.config/calcit/modules/`
 
-cr --emit-js -1
+cr -1 js #  compile js once
+
 yarn vite
 ```
 

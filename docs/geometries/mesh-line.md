@@ -4,8 +4,8 @@ Based on https://github.com/spite/THREE.MeshLine
 
 Extra npm module is required:
 
-```cirru
-yarn add three.meshline
+```bash
+yarn add meshline
 ```
 
 to render mesh line:
@@ -21,4 +21,5 @@ mesh-line $ {}
     :lineWidth 0.5
 ```
 
-> This npm module has no active maintainence. Might need to fork in future.
+> implemented with module [meshline](https://github.com/pmndrs/meshline).
+

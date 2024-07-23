@@ -9,5 +9,5 @@ text $ {}
   :material Material
 
   :size 4
-  :height 0.5
+  :depth 0.5
 ```
