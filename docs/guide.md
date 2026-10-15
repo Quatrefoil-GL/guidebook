@@ -9,7 +9,7 @@ Demo(Chrome with a touch screen) http://r.tiye.me/Quatrefoil-GL/quatrefoil/
 some helpers are split in npm package:
 
 ```bash
-yarn add @quamolit/quatrefoil-utils
+yarn add @quatrefoil/utils@0.0.3
 ```
 
 ### Develop
@@ -17,11 +17,13 @@ yarn add @quamolit/quatrefoil-utils
 Relies on <https://calcit-lang.org> .
 
 ```bash
-yarn
+corepack enable
 
-caps # get calcit deps in `~/.config/calcit/modules/`
+caps --strict # get the formal deps from deps.cirru into .calcit/modules/
 
-cr -1 js #  compile js once
+yarn install --immutable
+
+calcit js # compile calcit.cirru once with the version in deps.cirru
 
 yarn vite
 ```
