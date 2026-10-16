@@ -109,7 +109,14 @@
           :code $ quote $ defn render-app! ()
             match mount-target
               (:some element)
-                render! (narrow-element element) (comp-container @*reel schema/docs) dispatch!
+                render! (narrow-element element) (comp-container @*reel schema/docs)
+                  fn (op)
+                    hint-fn $ {}
+                      :args $ [] 'Dynamic
+                      :return 'Unit
+                      :features $ #{} :js-ffi
+                    if (enum? op) (dispatch! op) (raise "|Expected an Enum render action")
+                    , &unit
               (:none) (raise "|Missing .app mount element")
           :examples $ []
           :schema $ :: 'Fn $ {} (:return 'Unit)

@@ -13,6 +13,12 @@
 Docs Workflow 0.0.35 的 `next-path` 回调证明错误阻塞。普通检查、构建成功不代表
 该门禁通过；必须等待正式依赖修复后复跑，不使用未发布模块替代。
 
+最新的独立候选栈回放已清除上述 Docs Workflow 阻塞，并修正本应用自身的
+renderer 入口：开放 action 先检查 Enum，再调用原 typed dispatch，不改变
+文档路径、状态或事件 payload。该副本覆盖了待发版 Docs Workflow/Reel，
+完整 strict 通过，但不是正式 root 验收；实际依赖锁仍保留正式版本，
+发布链完成前不推送 PR、不合并或部署。
+
 ```bash
 corepack enable
 caps --strict
