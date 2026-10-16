@@ -12,15 +12,19 @@
 纯 updater 不再声明 JS FFI 权限；状态树解码明确要求 Tag 键的 Map，避免以
 宽泛 Map 类型掩盖状态结构。此改动不改变文档内容、目录顺序或部署路径。
 
-**目前暂不部署**：完整 `calcit fix --workflow strict --verify` 仍受正式依赖
-Docs Workflow 0.0.35 的 `next-path` 回调证明错误阻塞。普通检查、构建成功不代表
-该门禁通过；必须等待正式依赖修复后复跑，不使用未发布模块替代。
+正式依赖已协调为 Docs Workflow 0.0.36、Reel 0.6.38、Markdown 0.4.55、
+UI 0.7.40、Alerts 0.10.54、Router 0.8.35、Respo 0.16.120、js-ffi 0.2.3。
+本地根项目完整 strict/preflight 零诊断，238 个定义检查、JS/Vite CDN 构建及
+原 mdbook/linkcheck 构建通过；本地只读源码链接不代替 PR CI 的 fresh Caps 验收。
+renderer 入口的开放 action 先检查 Enum，再进入原 typed dispatch，不改变
+文档路径、状态或事件 payload。实际 Guide → Materials → Geometries → Box
+及历史回访通过，无 JS error；现有 get-env mode 警告保留。原项目没有附带测试，
+不以构建或浏览器导航宣称所有行为均有自动化覆盖，仍需审查及 CI 后才能合并部署。
 
-最新的独立候选栈回放已清除上述 Docs Workflow 阻塞，并修正本应用自身的
-renderer 入口：开放 action 先检查 Enum，再调用原 typed dispatch，不改变
-文档路径、状态或事件 payload。该副本覆盖了待发版 Docs Workflow/Reel，
-完整 strict 通过，但不是正式 root 验收；实际依赖锁仍保留正式版本，
-发布链完成前不推送 PR、不合并或部署。
+Vite 使用 `preserveSymlinks` 保留 Caps 模块入口路径，让原模块 CSS 直接解析
+消费者 npm 依赖和图片；不复制模块样式、不扩大开发服务器文件访问范围，也不在
+模块目录补装 node_modules。此分发问题已反馈上游
+[Docs Workflow #90](https://github.com/calcit-lang/docs-workflow/issues/90)。
 
 ```bash
 corepack enable
