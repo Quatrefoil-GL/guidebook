@@ -201,7 +201,7 @@
                 match
                   try-decode-map-as
                     update-state-tree (:states store) cursor data
-                    , 'Map
+                    :: 'Map 'Tag 'Dynamic
                   (:ok states) (docs-schema/Store :states states)
                   (:err message) (raise message)
               (:hydrate-storage data) data
@@ -209,7 +209,6 @@
           :examples $ []
           :schema $ :: 'Fn $ {} (:return 'docs-workflow.schema/Store)
             :args $ [] 'docs-workflow.schema/Store 'docs-workflow.schema/Op 'String 'Number
-            :features $ #{} :js-ffi
       :ns $ %{} 'NsEntry (:doc |)
         :code $ quote $ ns app.updater
           :require

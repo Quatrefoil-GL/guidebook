@@ -9,6 +9,9 @@
 文档节点与应用状态使用 Docs Workflow 的 `DocNode` / `Store`，浏览器事件在入口
 转换为正式 `Op`；非法状态数据会明确报错，不通过强转绕过类型检查。
 
+纯 updater 不再声明 JS FFI 权限；状态树解码明确要求 Tag 键的 Map，避免以
+宽泛 Map 类型掩盖状态结构。此改动不改变文档内容、目录顺序或部署路径。
+
 **目前暂不部署**：完整 `calcit fix --workflow strict --verify` 仍受正式依赖
 Docs Workflow 0.0.35 的 `next-path` 回调证明错误阻塞。普通检查、构建成功不代表
 该门禁通过；必须等待正式依赖修复后复跑，不使用未发布模块替代。
