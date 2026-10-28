@@ -2,9 +2,15 @@
 
 ### 迁移说明
 
-文档内容、目录顺序和原有 mdbook 页面保留。前端改用 Calcit / `@calcit/procs`
-0.30.1、Node.js 24、Yarn 4.18.0，以及已发布正式版本的 Docs Workflow / Respo / Reel。
-源码只维护 `calcit.cirru` 和 `deps.cirru`，不再使用 `compact.cirru`。
+本轮文档站候选配对正式 Calcit CLI / `@calcit/procs` **0.32.0**、Node.js 24、Yarn 4.18.0。
+目标模块为 Docs Workflow 0.0.40、Respo 0.17.0、Reel 0.7.0、Markdown 0.5.0、UI/Router 0.9.0、
+Alerts 0.11.0、JS-FFI 0.2.8。当前只使用本地候选模块联合验证；上游精确 tag 发布后还需
+干净 Caps strict 安装和 PR CI，不能把本地链接当作正式依赖图已通过。
+升级后重装依赖并刷新，UI 样式可能有差异。保留文档目录、mdbook 页面；源码只维护
+`calcit.cirru` 和 `deps.cirru`，不再使用 `compact.cirru`。
+
+默认 entry 显式绑定 `dispatch-op :dynamic`，对应原 renderer 的受检 `Dynamic → Unit` 合同。
+原 Enum 检查与 payload 解码保持，类型门禁不放宽。一小时 npm 依赖等待期无按版本豁免。
 
 文档节点与应用状态使用 Docs Workflow 的 `DocNode` / `Store`，浏览器事件在入口
 转换为正式 `Op`；非法状态数据会明确报错，不通过强转绕过类型检查。
@@ -12,7 +18,7 @@
 纯 updater 不再声明 JS FFI 权限；状态树解码明确要求 Tag 键的 Map，避免以
 宽泛 Map 类型掩盖状态结构。此改动不改变文档内容、目录顺序或部署路径。
 
-正式依赖已协调为 Docs Workflow 0.0.37、Reel 0.6.41、Markdown 0.4.59、
+历史 0.30.1 依赖曾协调为 Docs Workflow 0.0.37、Reel 0.6.41、Markdown 0.4.59、
 UI 0.8.0、Alerts 0.10.57、Router 0.8.37、Respo 0.16.124、js-ffi 0.2.5。
 此前 0.30.0 根项目完整 strict/preflight 零诊断，238 个定义检查、JS/Vite CDN 构建及
 原 mdbook/linkcheck 构建通过；本地只读源码链接不代替 PR CI 的 fresh Caps 验收。

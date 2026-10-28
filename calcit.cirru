@@ -6,7 +6,7 @@
     {} (:description |) (:init-fn 'app.main/main!) (:mode :js) (:reload-fn 'app.main/reload!) (:target :browser)
       :feature-policy $ {}
       :modules $ [] |respo.calcit/ |respo-ui.calcit/ |respo-markdown.calcit/ |reel.calcit/ |respo-router.calcit/ |alerts.calcit/ |docs-workflow/ |js-ffi/
-      :type-slots $ {}
+      :type-slots $ {} $ :dispatch-op :dynamic
   :files $ {}
     'app.config $ %{} 'FileEntry
       :defs $ {}
@@ -16,11 +16,11 @@
               get-env |mode
               , .unwrap-or |
           :examples $ []
-          :schema $ :: 'Bool
+          :schema $ quote Bool
         'site $ %{} 'CodeEntry (:doc |)
           :code $ quote $ def site (docs-schema/SiteConfig :storage-key |workflow)
           :examples $ []
-          :schema $ :: 'docs-workflow.schema/SiteConfig
+          :schema $ quote docs-workflow.schema/SiteConfig
       :ns $ %{} 'NsEntry (:doc |)
         :code $ quote $ ns app.config
           :require $ docs-workflow.schema :as docs-schema
@@ -29,7 +29,7 @@
         '*reel $ %{} 'CodeEntry (:doc |)
           :code $ quote $ defref *reel (typed/new-reel schema/store)
           :examples $ []
-          :schema $ :: 'Ref $ :: 'reel.typed/State 'docs-workflow.schema/Op 'docs-workflow.schema/Store
+          :schema $ quote $ Ref (reel.typed/State docs-workflow.schema/Op docs-workflow.schema/Store)
         'dispatch! $ %{} 'CodeEntry (:doc |)
           :code $ quote $ defn dispatch! (op)
             when
@@ -59,9 +59,7 @@
                   :timestamp $ shared/date-now-snapshot
             , &unit
           :examples $ []
-          :schema $ :: 'Fn $ {} (:return 'Unit)
-            :args $ [] 'Enum
-            :features $ #{} :js-ffi
+          :schema $ quote $ Fn Enum (-> Unit) (:features :js-ffi)
         'main! $ %{} 'CodeEntry (:doc |)
           :code $ quote $ defn main! () (register-languages!)
             println "|Running mode:" $ if config/dev? |dev |release
@@ -77,21 +75,17 @@
                 dispatch! :hydrate-storage $ parse-cirru-edn raw
             println "|App started."
           :examples $ []
-          :schema $ :: 'Fn $ {} (:return 'Unit)
-            :args $ []
-            :features $ #{} :js-ffi
+          :schema $ quote $ Fn (-> Unit) (:features :js-ffi)
         'mount-target $ %{} 'CodeEntry (:doc |)
           :code $ quote $ def mount-target (browser/query-selector |.app)
           :examples $ []
-          :schema $ :: 'Option 'js-ffi.browser/DomElementHost
+          :schema $ quote $ Option js-ffi.browser/DomElementHost
         'persist-storage! $ %{} 'CodeEntry (:doc |)
           :code $ quote $ defn persist-storage! () (println |persist)
             browser/storage-set! (:storage-key config/site)
               format-cirru-edn $ :store @*reel
           :examples $ []
-          :schema $ :: 'Fn $ {} (:return 'Unit)
-            :args $ []
-            :features $ #{} :js-ffi
+          :schema $ quote $ Fn (-> Unit) (:features :js-ffi)
         'reload! $ %{} 'CodeEntry (:doc |)
           :code $ quote $ defn reload! ()
             if (nil? build-errors)
@@ -102,26 +96,19 @@
               hud! |error build-errors
             , &unit
           :examples $ []
-          :schema $ :: 'Fn $ {} (:return 'Unit)
-            :args $ []
-            :features $ #{} :js-ffi
+          :schema $ quote $ Fn (-> Unit) (:features :js-ffi)
         'render-app! $ %{} 'CodeEntry (:doc |)
           :code $ quote $ defn render-app! ()
             match mount-target
               (:some element)
                 render! (narrow-element element) (comp-container @*reel schema/docs)
                   fn (op)
-                    hint-fn $ {}
-                      :args $ [] 'Dynamic
-                      :return 'Unit
-                      :features $ #{} :js-ffi
+                    hint-fn $ Fn Dynamic (-> Unit) (:features :js-ffi)
                     if (enum? op) (dispatch! op) (raise "|Expected an Enum render action")
                     , &unit
               (:none) (raise "|Missing .app mount element")
           :examples $ []
-          :schema $ :: 'Fn $ {} (:return 'Unit)
-            :args $ []
-            :features $ #{} :js-ffi
+          :schema $ quote $ Fn (-> Unit) (:features :js-ffi)
       :ns $ %{} 'NsEntry (:doc |)
         :code $ quote $ ns app.main
           :require
@@ -175,20 +162,19 @@
               docs-schema/DocNode :title |Camera :key :camera :content (load-doc |camera.md) :children $ []
               docs-schema/DocNode :title |Math :key :math :content (load-doc |math.md) :children $ [] $ docs-schema/DocNode :title |Quaternions :key :quaternions :content (load-doc |math/quaternions.md) :children ([])
           :examples $ []
-          :schema $ :: 'List 'docs-workflow.schema/DocNode
+          :schema $ quote $ List docs-workflow.schema/DocNode
         'load-doc $ %{} 'CodeEntry (:doc |)
           :code $ quote $ defmacro load-doc (filename)
             read-file $ str |docs/ filename
           :examples $ []
-          :schema $ :: 'Macro $ {}
-            :capabilities $ #{} :fs-read
-            :expansion $ :: 'Expr 'String
-            :required $ [] $ :: 'Expr 'String
+          :schema $ quote $ Macro (Expr String)
+            -> $ Expr String
+            :capabilities :fs-read
         'store $ %{} 'CodeEntry (:doc |)
           :code $ quote $ def store
             docs-schema/Store :states $ {} $ :cursor ([])
           :examples $ []
-          :schema $ :: 'docs-workflow.schema/Store
+          :schema $ quote docs-workflow.schema/Store
       :ns $ %{} 'NsEntry (:doc |)
         :code $ quote $ ns app.schema
           :require $ docs-workflow.schema :as docs-schema
@@ -207,8 +193,7 @@
               (:hydrate-storage data) data
               _ $ do (println "|unknown op:" op) store
           :examples $ []
-          :schema $ :: 'Fn $ {} (:return 'docs-workflow.schema/Store)
-            :args $ [] 'docs-workflow.schema/Store 'docs-workflow.schema/Op 'String 'Number
+          :schema $ quote $ Fn docs-workflow.schema/Store docs-workflow.schema/Op String Number (-> docs-workflow.schema/Store)
       :ns $ %{} 'NsEntry (:doc |)
         :code $ quote $ ns app.updater
           :require

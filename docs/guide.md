@@ -8,8 +8,8 @@ Demo(Chrome with a touch screen) http://r.tiye.me/Quatrefoil-GL/quatrefoil/
 
 This site is documentation, not a standalone Quatrefoil application. For a new
 application use the maintained [Quatrefoil workflow](https://github.com/Quatrefoil-GL/quatrefoil-workflow)
-and its paired formal `deps.cirru` / `@calcit/procs` versions. The current
-workflow uses Calcit 0.30.1 and published Quatrefoil 0.1.10.
+and inspect its own paired `deps.cirru` / `@calcit/procs` versions. Upgrading
+this documentation site does not verify or release that application template.
 
 Some host helpers live in npm packages; use the versions from that template's
 manifest and lockfile instead of adding the historical `@quatrefoil/utils@0.0.3`
@@ -17,7 +17,9 @@ pin from this page. Calcit modules and JS packages are separate dependencies.
 
 ### Develop this documentation site
 
-Relies on <https://calcit-lang.org> .
+This site targets formal Calcit/procs 0.32.0 and Docs Workflow 0.0.40 candidates.
+Local candidate checks do not establish the published dependency graph; clean
+Caps installation and PR CI must follow upstream publication.
 
 ```bash
 corepack enable
