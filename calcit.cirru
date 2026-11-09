@@ -6,7 +6,7 @@
     {} (:description |) (:init-fn 'app.main/main!) (:mode :js) (:reload-fn 'app.main/reload!) (:target :browser)
       :feature-policy $ {}
       :modules $ [] |respo.calcit/ |respo-ui.calcit/ |respo-markdown.calcit/ |reel.calcit/ |respo-router.calcit/ |alerts.calcit/ |docs-workflow/ |js-ffi/
-      :type-slots $ {} $ :dispatch-op 'Dynamic
+      :type-slots $ {} $ :dispatch-op 'docs-workflow.schema/Op
   :files $ {}
     'app.config $ %{} 'FileEntry
       :defs $ {}
@@ -44,7 +44,7 @@
                   match op
                     (:states cursor data)
                       match
-                        try-decode-map-as cursor $ :: 'List 'Dynamic
+                        try-decode-map-as cursor $ List respo.schema/CoordKey
                         (:ok checked-cursor) (docs-schema/Op :states checked-cursor data)
                         (:err message) (raise message)
                     (:hydrate-storage data)
@@ -59,7 +59,7 @@
                   :timestamp $ shared/date-now-snapshot
             , &unit
           :examples $ []
-          :schema $ quote $ Fn Enum (-> Unit) (:features :js-ffi)
+          :schema $ quote $ Fn AnyEnum (-> Unit) (:features :js-ffi) (:open :decode)
         'main! $ %{} 'CodeEntry (:doc |)
           :code $ quote $ defn main! () (register-languages!)
             println "|Running mode:" $ if config/dev? |dev |release
@@ -187,7 +187,7 @@
                 match
                   try-decode-map-as
                     update-state-tree (:states store) cursor data
-                    :: 'Map 'Tag 'Dynamic
+                    Map Tag Dynamic
                   (:ok states) (docs-schema/Store :states states)
                   (:err message) (raise message)
               (:hydrate-storage data) data

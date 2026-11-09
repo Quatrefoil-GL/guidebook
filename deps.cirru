@@ -1,12 +1,11 @@
-
-{} (:calcit-version |0.32.1)
+{} (:calcit-version |0.38.0)
   :version |0.0.4
   :dependencies $ {}
-    |calcit-lang/docs-workflow |0.0.40
-    |calcit-lang/js-ffi |0.2.9
-    |Respo/respo.calcit |0.17.1
-    |Respo/reel.calcit |0.7.0-alpha.5
-    |Respo/respo-markdown.calcit |0.5.0-alpha.5
-    |Respo/respo-ui.calcit |0.9.0
-    |Respo/respo-router.calcit |0.9.0-alpha.4
-    |Respo/alerts.calcit |0.11.0-alpha.4
+    |calcit-lang/docs-workflow |0.0.42
+    |calcit-lang/js-ffi |0.2.13
+    |Respo/respo.calcit |0.19.5
+    |Respo/reel.calcit |0.10.0
+    |Respo/respo-markdown.calcit |0.8.2
+    |Respo/respo-ui.calcit |0.15.2
+    |Respo/respo-router.calcit |0.12.2
+    |Respo/alerts.calcit |0.14.2
