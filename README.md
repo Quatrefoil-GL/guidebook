@@ -1,6 +1,10 @@
 ## Quatrefoil Calcit Guide Book
 
-### 迁移说明
+### Calcit 0.40.0 升级
+
+开发使用配对的 Calcit CLI 和 `@calcit/procs` 0.40.0。文档导航通过具名 `docs-workflow.schema/Op` 派发。Reel 0.11 的面板和快捷键使用独立的 `reel.typed/Control` 回调，由 Docs Workflow 0.1.0 的组件接收。
+
+### Calcit 0.32.1 迁移记录
 
 本轮文档站配对正式 Calcit CLI / `@calcit/procs` **0.32.1**、Node.js 24、Yarn 4.18.0。
 严格 Caps 从已发布 tag 安装八个模块：Docs Workflow 0.0.40、Respo 0.17.1、Reel 0.7.0-alpha.5、
