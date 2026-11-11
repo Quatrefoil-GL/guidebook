@@ -20,7 +20,7 @@
         'site $ %{} 'CodeEntry (:doc |)
           :code $ quote $ def site (docs-schema/SiteConfig :storage-key |workflow)
           :examples $ []
-          :schema $ quote docs-workflow.schema/SiteConfig
+          :schema $ quote docs-schema/SiteConfig
       :ns $ %{} 'NsEntry (:doc |)
         :code $ quote $ ns app.config
           :require $ docs-workflow.schema :as docs-schema
@@ -29,7 +29,7 @@
         '*reel $ %{} 'CodeEntry (:doc |)
           :code $ quote $ defref *reel (typed/new-reel schema/store)
           :examples $ []
-          :schema $ quote $ Ref (reel.typed/State docs-workflow.schema/Op docs-workflow.schema/Store)
+          :schema $ quote $ Ref (typed/State docs-workflow.schema/Op docs-workflow.schema/Store)
         'dispatch! $ %{} 'CodeEntry (:doc |)
           :code $ quote $ defn dispatch! (op)
             when
@@ -61,14 +61,14 @@
         'mount-target $ %{} 'CodeEntry (:doc |)
           :code $ quote $ def mount-target (browser/query-selector |.app)
           :examples $ []
-          :schema $ quote $ Option js-ffi.browser/DomElementHost
+          :schema $ quote $ Option browser/DomElementHost
         'on-control! $ %{} 'CodeEntry (:doc |)
           :code $ quote $ defn on-control! (control)
             when config/dev? $ println |Dispatch: control
             reset! *reel $ typed/apply-control updater @*reel control
             , &unit
           :examples $ []
-          :schema $ quote $ Fn reel.typed/Control (-> Unit) (:features :js-ffi)
+          :schema $ quote $ Fn typed/Control (-> Unit) (:features :js-ffi)
         'persist-storage! $ %{} 'CodeEntry (:doc |)
           :code $ quote $ defn persist-storage! () (println |persist)
             browser/storage-set! (:storage-key config/site)
@@ -148,7 +148,7 @@
               docs-schema/DocNode :title |Camera :key :camera :content (load-doc |camera.md) :children $ []
               docs-schema/DocNode :title |Math :key :math :content (load-doc |math.md) :children $ [] $ docs-schema/DocNode :title |Quaternions :key :quaternions :content (load-doc |math/quaternions.md) :children ([])
           :examples $ []
-          :schema $ quote $ List docs-workflow.schema/DocNode
+          :schema $ quote $ List docs-schema/DocNode
         'load-doc $ %{} 'CodeEntry (:doc |)
           :code $ quote $ defmacro load-doc (filename)
             read-file $ str |docs/ filename
@@ -160,7 +160,7 @@
           :code $ quote $ def store
             docs-schema/Store :states $ {} $ :cursor ([])
           :examples $ []
-          :schema $ quote docs-workflow.schema/Store
+          :schema $ quote docs-schema/Store
       :ns $ %{} 'NsEntry (:doc |)
         :code $ quote $ ns app.schema
           :require $ docs-workflow.schema :as docs-schema
@@ -179,7 +179,7 @@
               (:hydrate-storage data) data
               _ $ do (println "|unknown op:" op) store
           :examples $ []
-          :schema $ quote $ Fn docs-workflow.schema/Store docs-workflow.schema/Op String Number (-> docs-workflow.schema/Store)
+          :schema $ quote $ Fn docs-schema/Store docs-schema/Op String Number (-> docs-schema/Store)
       :ns $ %{} 'NsEntry (:doc |)
         :code $ quote $ ns app.updater
           :require
