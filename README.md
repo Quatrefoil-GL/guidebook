@@ -1,8 +1,8 @@
 ## Quatrefoil Calcit Guide Book
 
-### Calcit 0.41.1 升级
+### Calcit 0.42.1 升级
 
-开发使用配对的 Calcit CLI 和 `@calcit/procs` 0.41.1。文档导航通过具名 `docs-workflow.schema/Op` 派发。Reel 0.11 的面板和快捷键使用独立的 `reel.typed/Control` 回调，由 Docs Workflow 0.1.0 的组件接收。
+开发使用配对的 Calcit CLI 和 `@calcit/procs` 0.42.1。文档导航通过具名 `docs-workflow.schema/Op` 派发。Reel 0.11 的面板和快捷键使用独立的 `reel.typed/Control` 回调，由 Docs Workflow 0.1.0 的组件接收。
 
 ### Calcit 0.32.1 迁移记录
 
