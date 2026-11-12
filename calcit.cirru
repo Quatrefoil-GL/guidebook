@@ -41,7 +41,7 @@
               :timestamp $ shared/date-now-snapshot
             , &unit
           :examples $ []
-          :schema $ quote $ Fn docs-workflow.schema/Op (-> Unit) (:features :js-ffi)
+          :schema $ quote $ Fn docs-workflow.schema/Op (-> Unit) (:features :io :js-ffi :state)
         'main! $ %{} 'CodeEntry (:doc |)
           :code $ quote $ defn main! () (register-languages!)
             println "|Running mode:" $ if config/dev? |dev |release
@@ -57,7 +57,7 @@
                 dispatch! :hydrate-storage $ parse-cirru-edn raw
             println "|App started."
           :examples $ []
-          :schema $ quote $ Fn (-> Unit) (:features :js-ffi)
+          :schema $ quote $ Fn (-> Unit) (:features :io :js-ffi :state)
         'mount-target $ %{} 'CodeEntry (:doc |)
           :code $ quote $ def mount-target (browser/query-selector |.app)
           :examples $ []
@@ -68,13 +68,13 @@
             reset! *reel $ typed/apply-control updater @*reel control
             , &unit
           :examples $ []
-          :schema $ quote $ Fn typed/Control (-> Unit) (:features :js-ffi)
+          :schema $ quote $ Fn typed/Control (-> Unit) (:features :io :js-ffi :state)
         'persist-storage! $ %{} 'CodeEntry (:doc |)
           :code $ quote $ defn persist-storage! () (println |persist)
             browser/storage-set! (:storage-key config/site)
               format-cirru-edn $ :store @*reel
           :examples $ []
-          :schema $ quote $ Fn (-> Unit) (:features :js-ffi)
+          :schema $ quote $ Fn (-> Unit) (:features :io :js-ffi :state)
         'reload! $ %{} 'CodeEntry (:doc |)
           :code $ quote $ defn reload! ()
             if (nil? build-errors)
@@ -85,7 +85,7 @@
               hud! |error build-errors
             , &unit
           :examples $ []
-          :schema $ quote $ Fn (-> Unit) (:features :js-ffi)
+          :schema $ quote $ Fn (-> Unit) (:features :io :js-ffi :state)
         'render-app! $ %{} 'CodeEntry (:doc |)
           :code $ quote $ defn render-app! ()
             match mount-target
@@ -95,7 +95,7 @@
                   , dispatch!
               (:none) (raise "|Missing .app mount element")
           :examples $ []
-          :schema $ quote $ Fn (-> Unit) (:features :js-ffi)
+          :schema $ quote $ Fn (-> Unit) (:features :io :js-ffi :state)
       :ns $ %{} 'NsEntry (:doc |)
         :code $ quote $ ns app.main
           :require
@@ -165,21 +165,25 @@
         :code $ quote $ ns app.schema
           :require $ docs-workflow.schema :as docs-schema
     'app.updater $ %{} 'FileEntry
-      :defs $ {} $ 'updater
-        %{} 'CodeEntry (:doc |)
+      :defs $ {}
+        'StateValue $ %{} 'CodeEntry (:doc |)
+          :code $ quote $ defunion StateValue Bool Number String Tag docs-schema/State (List StateValue) (Map respo.schema/CoordKey StateValue)
+          :examples $ []
+          :schema $ quote UnionDef
+        'updater $ %{} 'CodeEntry (:doc |)
           :code $ quote $ defn updater (store op op-id op-time)
             match op
               (:states cursor data)
                 match
                   try-decode-map-as
                     update-state-tree (:states store) cursor data
-                    Map Tag Dynamic
+                    Map Tag StateValue
                   (:ok states) (docs-schema/Store :states states)
                   (:err message) (raise message)
               (:hydrate-storage data) data
               _ $ do (println "|unknown op:" op) store
           :examples $ []
-          :schema $ quote $ Fn docs-schema/Store docs-schema/Op String Number (-> docs-schema/Store)
+          :schema $ quote $ Fn docs-schema/Store docs-schema/Op String Number (-> docs-schema/Store) (:features :io)
       :ns $ %{} 'NsEntry (:doc |)
         :code $ quote $ ns app.updater
           :require
