@@ -35,6 +35,7 @@
             when
               and config/dev? $ match op
                 (:states _ _) false
+                (:navigate _ _) false
                 (:hydrate-storage _) true
               println |Dispatch: op
             reset! *reel $ typed/record-op updater @*reel op (generate-id!)
@@ -165,27 +166,11 @@
         :code $ quote $ ns app.schema
           :require $ docs-workflow.schema :as docs-schema
     'app.updater $ %{} 'FileEntry
-      :defs $ {}
-        'StateValue $ %{} 'CodeEntry (:doc |)
-          :code $ quote $ defunion StateValue Bool Number String Tag docs-schema/State (List StateValue) (Map respo.schema/CoordKey StateValue)
+      :defs $ {} $ 'updater
+        %{} 'CodeEntry (:doc |)
+          :code $ quote $ defn updater (store op op-id op-time) (shared-updater/updater store op op-id op-time)
           :examples $ []
-          :schema $ quote UnionDef
-        'updater $ %{} 'CodeEntry (:doc |)
-          :code $ quote $ defn updater (store op op-id op-time)
-            match op
-              (:states cursor data)
-                match
-                  try-decode-map-as
-                    update-state-tree (:states store) cursor data
-                    Map Tag StateValue
-                  (:ok states) (docs-schema/Store :states states)
-                  (:err message) (raise message)
-              (:hydrate-storage data) data
-              _ $ do (println "|unknown op:" op) store
-          :examples $ []
-          :schema $ quote $ Fn docs-schema/Store docs-schema/Op String Number (-> docs-schema/Store) (:features :io)
+          :schema $ quote $ Fn docs-schema/Store docs-schema/Op String Number (-> docs-schema/Store)
       :ns $ %{} 'NsEntry (:doc |)
         :code $ quote $ ns app.updater
-          :require
-            respo.cursor :refer $ update-state-tree
-            docs-workflow.schema :as docs-schema
+          :require (docs-workflow.schema :as docs-schema) (docs-workflow.updater :as shared-updater)

@@ -17,9 +17,9 @@ pin from this page. Calcit modules and JS packages are separate dependencies.
 
 ### Develop this documentation site
 
-This site targets paired formal Calcit/procs 0.32.1 and published Docs Workflow
-0.0.40. Install the complete graph with strict Caps. Direct dependency versions
-match the shared module's pins; several modules still use fixed alpha tags.
+This site targets paired formal Calcit/procs 0.43.0 and published Docs Workflow
+0.1.1. Install the complete graph with strict Caps. Direct dependency versions
+match the shared module's released dependencies.
 
 ```bash
 corepack enable
